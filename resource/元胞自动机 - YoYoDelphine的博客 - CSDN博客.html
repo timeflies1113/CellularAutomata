@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/YoYoDelphine/article/details/53136900"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="元胞自动机1. 简介cellular automata，在本质上，是一种将无序，无规则，不平衡的状态，将它变为有序、有规则、平衡的状态。这种改变是不可预测的。首先，一个可以转化为空间结构，或者说棋盘结构的世界。其次，状态的改变只与周围邻居的状态有关，且改变规矩是普适一样的。最后，平衡的状态其实可以有很多种，制定好规则后每次得到的状态可能都不一样。PS: 关于rule的选择， Stephen Wolf" />
+    <meta name="keywords" content="结构,预测" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>元胞自动机 - YoYoDelphine的博客 - CSDN博客</title>
+
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-e2f32ea0d6.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-9b39979775.min.css">
+
+    <script type="text/javascript">
+        var username = "YoYoDelphine";
+        var blog_address = "https://blog.csdn.net/yoyodelphine";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = "";
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/YoYoDelphine/article/details/53136900"
+        var blogUrl = "https://blog.csdn.net/";
+        //页面皮肤样式
+        var curSkin = "skin3-template";
+        // 第四范式所需数据
+        var articleTitles = "元胞自动机 - YoYoDelphine的博客";
+        var articleID = "53136900";
+
+        var nickName = "YoYoDelphine";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.1.1/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<!-- nodata 第三栏接口无数据时样式不变 -->
+<body class="nodata"> 
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script type="text/javascript" src="//g.csdnimg.cn/copyright/1.0.2/copyright.js"></script>
+<div style="display:none;">
+	<img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+</div>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/chart-3456820cac.css" />
+
+
+
+<script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix" id="mainBox">
+		<!-- <div id="breadcrumbs">
+			<span><a href="https://blog.csdn.net/">博客首页</a></span>
+			<i>></i>
+			<span><a href="https://blog.csdn.net/yoyodelphine">YoYoDelphine的博客...</a></span>
+			<i>></i>
+			<span>元胞自动机</span>
+		</div> -->
+		<div class="recommend-right">
+  <ul class="recommend-fixed-box">
+    
+  </ul>
+</div>
+    <main>
+        <div class="blog-content-box">
+	<div class="article-header-box">
+		<div class="article-header">
+			<div class="article-title-box">
+				<span class="article-type type-1 float-left">原</span>				<h1 class="title-article">元胞自动机</h1>
+			</div>
+			<div class="article-info-box">
+				<div class="article-bar-top">
+																				<span class="time">2016年11月12日 01:41:48</span>
+					<a class="follow-nickName" href="https://me.csdn.net/YoYoDelphine" target="_blank">YoYoDelphine</a>
+						<span class="read-count">阅读数：9933</span>
+						
+														<span class="tags-box artic-tag-box">
+								<span class="label">标签：</span>
+																<a data-track-click='{"mod":"popu_626","con":"结构"}' data-track-view='{"mod":"popu_626","con":"结构"}' class="tag-link" href="http://so.csdn.net/so/search/s.do?q=结构&t=blog" target="_blank">结构																<a data-track-click='{"mod":"popu_626","con":"预测"}' data-track-view='{"mod":"popu_626","con":"预测"}' class="tag-link" href="http://so.csdn.net/so/search/s.do?q=预测&t=blog" target="_blank">预测																</a>
+							</span>
+																					<div class="tags-box space">
+								<span class="label">个人分类：</span>
+																<a class="tag-link" href="https://blog.csdn.net/YoYoDelphine/article/category/6130743"  target="_blank">算法学习																</a>
+							</div>
+																								</div>
+				<div class="operating">
+														</div>
+			</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+								<div class="article-copyright">
+					版权声明：本文为博主原创文章，未经博主允许不得转载。					https://blog.csdn.net/YoYoDelphine/article/details/53136900				</div>
+								            <div class="markdown_views prism-atom-one-dark">
+							<!-- flowchart 箭头图标 勿删 -->
+							<svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg>
+							<h2 id="元胞自动机">元胞自动机</h2>
+
+
+
+<h3 id="1-简介">1. 简介</h3>
+
+<p><strong>cellular automata</strong>，在本质上，是一种将无序，无规则，不平衡的状态，将它变为有序、有规则、平衡的状态。这种改变是不可预测的。</p>
+
+<p>首先，一个可以转化为空间结构，或者说棋盘结构的世界。</p>
+
+<p>其次，状态的改变只与周围邻居的状态有关，且改变规矩是普适一样的。</p>
+
+<p>最后，平衡的状态其实可以有很多种，制定好规则后每次得到的状态可能都不一样。</p>
+
+<p>PS: 关于rule的选择， Stephen Wolfram 他列出了经典的256种规则，并根据规则的不同，把所有Cellular automata归为了4类。（具体可以参读他的《A new kind of science》）</p>
+
+<ol>
+<li><p>No change in final state                 (不变)</p>
+
+<p>(Tends to a spatially homogeneous state)</p></li>
+<li><p>Changes only in a region of finite size             (有限范围内改变)</p>
+
+<p>(Yields a sequence of simple stable or periodic structures)</p></li>
+<li><p>Changes over a region of ever-increasing size(在一个不断增大的范围内改变)</p>
+
+<p>(Exhibits chaotic aperiodic behaviour)</p></li>
+<li><p>Irregular changes         (无规则改变)</p>
+
+<p>(Yields complicated localized structures, some propagating)</p></li>
+</ol>
+
+<p>可以看到第一二类都在固定范围内，在第三类中，通常以一个固定的正速度增长。 <br>
+具体应用时，理应根据模型实际规则制定rule。</p>
+
+<p>算法在使用时，都需明确以下几点： <br>
+1. 结构。如何将空间模型抽象为一个个cell <br>
+2. 邻居。如何定义每个cell的邻居 <br>
+3. 规则。如何定义每个cell根据上一时间点cell状态及邻居状态进行更新的规则。 </p>
+
+<p>rule110示例:</p>
+
+<p><img src="https://img-blog.csdn.net/20161112013758783" alt="截自《A new kind of science》" title=""></p>
+
+<p>rule 250:</p>
+
+<p><img src="https://img-blog.csdn.net/20161112013856299" alt="截自《A new kind of science》" title=""></p>
+
+<p>(说明：以上图片，都是根据相应规则，从一个小黑方格逐渐演变而来。是一个一维空间的示例。规则小方框内代表一个cell根据它两个邻居及它之前的状态做出改变)</p>
+
+<p>代码已上传啦~，2017年选的美赛C题。。。。感觉全程只有我一个程序媛最苦逼。。。。 <br>
+有一个是基于多道变少道的代码，另外一个是我瞎编的用散点图模拟了空间连续性的不知道是什么自动机的代码，具体目的是想实现连续性的速度和安全距离啥的~大家有什么问题可以问我哦！ <br>
+<a href="http://download.csdn.net/detail/yoyodelphine/9744735" rel="nofollow">多道少道元胞自动机</a> <br>
+<a href="http://download.csdn.net/detail/yoyodelphine/9744736" rel="nofollow">瞎编的迷之自动机</a></p>            </div>
+						<link href="https://csdnimg.cn/release/phoenix/mdeditor/markdown_views-8cccb36679.css" rel="stylesheet">
+                </div>
+									<div class="hide-article-box text-center">
+						<a class="btn" id="btn-readmore" data-track-view='{"mod":"popu_376","con":",https://blog.csdn.net/YoYoDelphine/article/details/53136900,"}' data-track-click='{"mod":"popu_376","con":",https://blog.csdn.net/YoYoDelphine/article/details/53136900,"}'>阅读更多</a>
+					</div>
+					<script>
+						(function(){
+							function setArticleH(btnReadmore,posi){
+								var winH = $(window).height();
+								var articleBox = $("div.article_content");
+								var artH = articleBox.height();
+								if(artH > winH*posi){
+									articleBox.css({
+										'height':winH*posi+'px',
+										'overflow':'hidden'
+									})
+									btnReadmore.click(function(){
+										articleBox.removeAttr("style");
+										$(this).parent().remove();
+									})
+								}else{
+									btnReadmore.parent().remove();
+								}
+							}
+							var btnReadmore = $("#btn-readmore");
+							if(btnReadmore.length>0){
+								if(currentUserName){
+									setArticleH(btnReadmore,3);
+								}else{
+									setArticleH(btnReadmore,1.2);
+								}
+							}
+						})()
+					</script>
+					</article>
+	
+</div>
+<script>
+		$(".MathJax").remove();
+		if($('div.markdown_views pre.prettyprint code.hljs').length > 0 ){
+				$('div.markdown_views')[0].className = 'markdown_views';
+		}
+</script>
+        <div class="p4course_target" ></div><script>window.p4sdk_enable_courseBox=true</script>        <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="unlogin-box text-center">
+		想对作者说点什么？
+		<!-- $curl 当前地址 -->
+		<a href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/YoYoDelphine/article/details/53136900#commentBox" class="btn btn-sm btn-red">我来说一句</a>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/sinat_41805381/article/details/79501854,BlogCommendFromBaidu_0"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sinat_41805381/article/details/79501854,BlogCommendFromBaidu_0"}'>
+		<a href="https://blog.csdn.net/sinat_41805381/article/details/79501854" target="_blank" title="元胞自动机模型01——认识元细胞机模型">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						<em>元胞</em><em>自动机</em>模型01——认识元细胞机模型				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="avatar">
+							<img src="https://avatar.csdn.net/A/2/7/3_sinat_41805381.jpg" alt="sinat_41805381" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">sinat_41805381</span>
+								<span class="triangle"></span>
+							</span>
+					</p>
+					<p class="date-and-readNum">
+						<span class="date hover-show">03-09</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							1188</span>
+						</p>
+					</div>
+					<p class="content oneline">
+							【笔记来自《传染病传播模型研究》余雷】
+
+&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;元胞自动机模型是网络动力学模型中最常用的一种。网络动力学模型主要包括元胞自动机...					</p>
+			</div>
+					</a>
+	</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/woodpeck/article/details/78856251,BlogCommendFromBaidu_1"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/woodpeck/article/details/78856251,BlogCommendFromBaidu_1"}'>
+		<a href="https://blog.csdn.net/woodpeck/article/details/78856251" target="_blank" title="元胞自动机简介">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						<em>元胞</em><em>自动机</em>简介				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="avatar">
+							<img src="https://avatar.csdn.net/0/2/A/3_woodpeck.jpg" alt="woodpeck" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">woodpeck</span>
+								<span class="triangle"></span>
+							</span>
+					</p>
+					<p class="date-and-readNum">
+						<span class="date hover-show">12-20</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							917</span>
+						</p>
+					</div>
+					<p class="content oneline">
+							摘要：
+元胞自动机能利用简单的局部规则和离散方法描述复杂的全局的连续系统，已成为探索复杂系统的一种有效工具。
+文章 
+阐述了元胞自动机的发展历程、结构、特征及基本理论与方珐；
+介绍了元胞自动机在寡头垄...					</p>
+			</div>
+					</a>
+	</div>
+									<div class="recommend-item-box recommend-ad-box clearfix">
+					<script type="text/javascript" src="//rabc1.iteye.com/production/source/pc3553.js?pkcgstj=jm"></script>
+				</div>
+			
+						<div class="recommend-item-box recommend-box-ident recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/silence_lym/2267050,BlogCommendFromBaidu_2"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/silence_lym/2267050,BlogCommendFromBaidu_2"}'>
+			<a href="https://download.csdn.net/download/silence_lym/2267050" target="_blank">
+				<div class="content">
+					<div class="">
+						<span class="type">下载</span>
+						<h4 class="text-truncate oneline clearfix">
+							各种常用的<em>元胞</em><em>自动机</em>模型						</h4>
+						<span class="data float-right">04-21</span>
+					</div>
+					<div class="desc oneline">
+							各种常用的元胞自动机模型 原理描述。元胞自动机是由空间上各项同性的一系列元胞所组成，是在有限元胞自动机基础上发 展起来的，用于模拟和分析几何空间内的各种现象。					</div>
+				</div>
+			</a>
+		</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/SevenWen/article/details/53539537,BlogCommendFromBaidu_3"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/SevenWen/article/details/53539537,BlogCommendFromBaidu_3"}'>
+		<a href="https://blog.csdn.net/SevenWen/article/details/53539537" target="_blank" title="什么是元胞自动机">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						什么是<em>元胞</em><em>自动机</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="avatar">
+							<img src="https://avatar.csdn.net/C/B/9/3_sevenwen.jpg" alt="SevenWen" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">SevenWen</span>
+								<span class="triangle"></span>
+							</span>
+					</p>
+					<p class="date-and-readNum">
+						<span class="date hover-show">12-09</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							1.2万</span>
+						</p>
+					</div>
+					<p class="content oneline">
+							看了网上的资料和大神Stephen Wolfram的论文，对元胞自动机有了一点基本的了解。
+先贴一段维基百科的解释：
+
+
+细胞自动机（英语：Cellular automaton），又称格状自动机、元胞...					</p>
+			</div>
+					</a>
+	</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/chl033/article/details/5367861,BlogCommendFromBaidu_4"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/chl033/article/details/5367861,BlogCommendFromBaidu_4"}'>
+		<a href="https://blog.csdn.net/chl033/article/details/5367861" target="_blank" title="元胞自动机与相关理论和方法">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						<em>元胞</em><em>自动机</em>与相关理论和方法				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="avatar">
+							<img src="https://avatar.csdn.net/5/4/8/3_chl033.jpg" alt="chl033" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">chl033</span>
+								<span class="triangle"></span>
+							</span>
+					</p>
+					<p class="date-and-readNum">
+						<span class="date hover-show">03-11</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							1万</span>
+						</p>
+					</div>
+					<p class="content oneline">
+							元胞自动机与相关理论和方法的发展有着千丝万缕的联系，一方面，元胞自动机的发展得益于相关理论的研究，如逻辑数学、离散数学、计算机中的自动机理论，图灵机思想;另一方面，元胞自动机的发展也促进了一些相关学科...					</p>
+			</div>
+					</a>
+	</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/typeofzj/article/details/77922122,BlogCommendFromBaidu_5"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/typeofzj/article/details/77922122,BlogCommendFromBaidu_5"}'>
+		<a href="https://blog.csdn.net/typeofzj/article/details/77922122" target="_blank" title="matlab代码 交通流元胞自动机仿真  双车道">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						matlab代码 交通流<em>元胞</em><em>自动机</em>仿真  双车道				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="avatar">
+							<img src="https://avatar.csdn.net/A/1/C/3_typeofzj.jpg" alt="typeofzj" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">typeofzj</span>
+								<span class="triangle"></span>
+							</span>
+					</p>
+					<p class="date-and-readNum">
+						<span class="date hover-show">09-10</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							6798</span>
+						</p>
+					</div>
+					<p class="content oneline">
+							此代码是在已有元胞自动机交通流代码的基础上修改而成的，为了熟悉matlab语言以及程序的构造思想，进行改动。位置记录以及行车速度方面的规则是需要重要注意
+与理解的方面。...					</p>
+			</div>
+					</a>
+	</div>
+								<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 60,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'left',
+						imageBorderRadius: 0,
+						imageWidth: 90,
+						imageHeight: 60,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 8,
+						displayDesc: true,
+						descFontSize: 14,
+						descPaddingLeft: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/iai64824/article/details/54844883,BlogCommendFromBaidu_6"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/iai64824/article/details/54844883,BlogCommendFromBaidu_6"}'>
+		<a href="https://blog.csdn.net/iai64824/article/details/54844883" target="_blank" title="编程模拟自然(九)：元胞自动机">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						编程模拟自然(九)：<em>元胞</em><em>自动机</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="avatar">
+							<img src="https://avatar.csdn.net/8/6/4/3_iai64824.jpg" alt="iai64824" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">iai64824</span>
+								<span class="triangle"></span>
+							</span>
+					</p>
+					<p class="date-and-readNum">
+						<span class="date hover-show">02-03</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							3716</span>
+						</p>
+					</div>
+					<p class="content oneline">
+							序
+　　旧书有云：发鸠之山，其上多柘木。有鸟焉，其状如乌，文首、白喙、赤足，名曰精卫，其鸣自詨。
+　　一日，精卫游于码海，溺而不返，后常衔西山之木石，以堙于海。有诗为证：
+
+　　万事有不平，尔...					</p>
+			</div>
+					</a>
+	</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/sk18192449347/article/details/77312160,BlogCommendFromBaidu_7"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sk18192449347/article/details/77312160,BlogCommendFromBaidu_7"}'>
+		<a href="https://blog.csdn.net/sk18192449347/article/details/77312160" target="_blank" title="基于元胞自动机的城市规划">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						基于<em>元胞</em><em>自动机</em>的城市规划				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="avatar">
+							<img src="https://avatar.csdn.net/8/4/F/3_sk18192449347.jpg" alt="sk18192449347" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">sk18192449347</span>
+								<span class="triangle"></span>
+							</span>
+					</p>
+					<p class="date-and-readNum">
+						<span class="date hover-show">08-17</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							4521</span>
+						</p>
+					</div>
+					<p class="content oneline">
+							元胞自动机-城市规划
+1、城市规模设计 
+       雄安新区占地总面积约为2000平方公里，涉及河北省雄县、容城、安新3个县及周边部分区域，地处北京、天津、保定腹地，通过ArcGIS地图软件搜索该...					</p>
+			</div>
+					</a>
+	</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/hemeinvyiqiluoben/article/details/80005394,BlogCommendFromBaidu_8"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/hemeinvyiqiluoben/article/details/80005394,BlogCommendFromBaidu_8"}'>
+		<a href="https://blog.csdn.net/hemeinvyiqiluoben/article/details/80005394" target="_blank" title="元胞自动机理论">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						<em>元胞</em><em>自动机</em>理论				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="avatar">
+							<img src="https://avatar.csdn.net/9/7/F/3_hemeinvyiqiluoben.jpg" alt="hemeinvyiqiluoben" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">hemeinvyiqiluoben</span>
+								<span class="triangle"></span>
+							</span>
+					</p>
+					<p class="date-and-readNum">
+						<span class="date hover-show">04-19</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							251</span>
+						</p>
+					</div>
+					<p class="content oneline">
+							转自  ：http://swarmagents.cn.13442.m8849.cn/complex/models/ca/ca1.htm					</p>
+			</div>
+					</a>
+	</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/andylfg/article/details/17097009,BlogCommendESEnWordWeight_9"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/andylfg/article/details/17097009,BlogCommendESEnWordWeight_9"}'>
+		<a href="https://blog.csdn.net/andylfg/article/details/17097009" target="_blank" title="元胞cell的一些用途">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						<em>元胞</em>cell的一些用途				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="avatar">
+							<img src="https://avatar.csdn.net/7/6/8/3_andylfg.jpg" alt="andylfg" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">andylfg</span>
+								<span class="triangle"></span>
+							</span>
+					</p>
+					<p class="date-and-readNum">
+						<span class="date hover-show">12-03</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							489</span>
+						</p>
+					</div>
+					<p class="content oneline">
+							简介
+cell元包是matlab中提供的一种数据类型，功能强大。其特点是可以用于组合多种类型的数据到一个变量组中，能方便的容纳或扩充内容。
+cell的创建
+1.跟一般创建举证一样，直接使用C = {A...					</p>
+			</div>
+					</a>
+	</div>
+						<div class="recommend-item-box type_hot_word">
+									<div class="content clearfix oneline">
+				<h5 class="float-left">相关热词</h5>
+				<div class="float-left">
+									<span>
+						<a href="https://blog.csdn.net/coder___life/article/details/78191314" target="_blank">
+						元胞</a>
+					</span>
+									<span>
+						<a href="https://blog.csdn.net/tinymilk/article/details/19141093" target="_blank">
+						元胞规则</a>
+					</span>
+									<span>
+						<a href="https://blog.csdn.net/galaxy9064/article/details/40947893" target="_blank">
+						元胞赋值</a>
+					</span>
+									<span>
+						<a href="https://blog.csdn.net/thebigdong/article/details/54586610" target="_blank">
+						元胞matlab</a>
+					</span>
+									<span>
+						<a href="https://blog.csdn.net/qq_41093189/article/details/79181737" target="_blank">
+						元胞机</a>
+					</span>
+								</div>
+			</div>
+					</div>
+		<div class="recommend-item-box blog-expert-recommend-box">
+			<h4 class="text-truncate">博主推荐
+			</h4>
+			<div class="blog-expert-recommend">
+				<div class="blog-expert-load-new" data-index="3">
+					<svg version="1.1" viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve">
+					<path d="M142.5,57.5c-1.3-1.2-2.1-3.3-2.1-5.4c0-4.2,3.3-7.5,7.5-7.5h19.6c4.2,0,7.5,3.3,7.5,7.5s-3.3,7.5-7.5,7.5h-4.2
+					 C170.8,71.2,175,85,175,100c0,41.7-33.8,75-75,75c-4.2,0-7.5-3.3-7.5-7.5c0-4.2,3.3-7.5,7.5-7.5c33.3,0,60-27.1,60-60
+					 C160,83.7,153.8,68.7,142.5,57.5L142.5,57.5z M57.5,142.5c1.2,1.2,2.1,3.3,2.1,5.4c0,4.2-3.3,7.5-7.5,7.5H32.5
+					 c-4.2,0-7.5-3.3-7.5-7.5c0-4.2,3.3-7.5,7.5-7.5h4.2C29.2,128.8,25,115,25,100c0-41.7,33.7-75,75-75c4.2,0,7.5,3.3,7.5,7.5
+					 S104.2,40,100,40c-33.3,0-60,27.1-60,60C40,116.2,46.2,131.2,57.5,142.5z"/>
+					</svg>
+					<span>换一批</span>
+				</div>
+				<div class="blog-expert">
+				</div>
+			</div>
+		</div>
+
+
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <!-- <h3 class="aside-title">个人资料</h3> -->
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/YoYoDelphine">
+                <img src="https://avatar.csdn.net/4/E/2/3_yoyodelphine.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/YoYoDelphine" target="_blank" class="" id="uid">YoYoDelphine</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/YoYoDelphine/article/details/53136900" target="_self">关注</a>
+                            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="21">
+                        <dt><a href="https://blog.csdn.net/yoyodelphine?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/yoyodelphine?t=1"><span class="count">21</span></a></dd>
+                    </dl>
+        <dl class="text-center" id="fanBox" title="27">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">27</span></dd>
+        </dl>
+        <dl class="text-center" title="6">
+            <dt>喜欢</dt>
+            <dd><span class="count">6</span></dd>
+        </dl>
+        <dl class="text-center" title="8">
+            <dt>评论</dt>
+            <dd><span class="count">8</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="3级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-3"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="80351">
+                8万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="998">
+                998            </dd>
+        </dl>
+        <dl title="58815">
+            <dt>排名：</dt>
+            <dd>5万+</dd>
+        </dl>
+    </div>
+    </div>
+		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+      <!-- 广告位：PC-博客内页-百度联盟-300x250 --><script type="text/javascript" src="//rabc1.iteye.com/source/api/ymebi.js?bwoc=oltly"></script>    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/YoYoDelphine/article/details/70037783" target="_blank">机器学习笔记 —— PCA</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/YoYoDelphine/article/details/53312330" target="_blank">[服务器小笔记]上传下载文件及python调试</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/YoYoDelphine/article/details/53311380" target="_blank">[服务器小笔记]Ubuntu配置numpy等环境</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/YoYoDelphine/article/details/52888342" target="_blank">机器学习笔记（三）牛顿法和梯度下降法</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/YoYoDelphine/article/details/52888315" target="_blank">机器学习笔记（二）L1，L2正则化</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    <div id="asideCategory" class="aside-box">
+    <h3 class="aside-title">个人分类</h3>
+    <div class="aside-content">
+        <ul>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/yoyodelphine/article/category/6130569">
+                    <span class="title oneline">java学习</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/yoyodelphine/article/category/6130743">
+                    <span class="title oneline">算法学习</span>
+                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/yoyodelphine/article/category/6229540">
+                    <span class="title oneline">unix学习</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/yoyodelphine/article/category/6250783">
+                    <span class="title oneline">数据库学习</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/yoyodelphine/article/category/6353400">
+                    <span class="title oneline">数据挖掘</span>
+                    <span class="count float-right">11篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+    </div>
+		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yoyodelphine/article/month/2017/04">
+                    2017年4月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yoyodelphine/article/month/2016/11">
+                    2016年11月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yoyodelphine/article/month/2016/10">
+                    2016年10月                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yoyodelphine/article/month/2016/08">
+                    2016年8月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yoyodelphine/article/month/2016/06">
+                    2016年6月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yoyodelphine/article/month/2016/05">
+                    2016年5月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yoyodelphine/article/month/2016/04">
+                    2016年4月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/yoyodelphine/article/month/2016/03">
+                    2016年3月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/yoyodelphine/article/details/53136900">元胞自动机</a>
+					<p class="read">阅读量：<span>9924</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/yoyodelphine/article/details/51658790">javaweb动态网站-----如何在javaweb项目中使用bootstrap框架</a>
+					<p class="read">阅读量：<span>9901</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/yoyodelphine/article/details/52153651">特征选择算法之 ReliefF 算法</a>
+					<p class="read">阅读量：<span>9212</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/yoyodelphine/article/details/52888276">机器学习笔记（一）逻辑回归与多项逻辑回归</a>
+					<p class="read">阅读量：<span>8244</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/yoyodelphine/article/details/52834350">最优化算法 之 遗传算法代码实现及说明</a>
+					<p class="read">阅读量：<span>7887</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/yoyodelphine/article/details/52783431#comments">最优化算法 之 PSO算法</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/l_w_c_" class="user-name" target="_blank">l_w_c_</a>：这个函数里面没有定义data和label的值。。。。                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/yoyodelphine/article/details/53136900#comments">元胞自动机</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/Marilynmontu" class="user-name" target="_blank">Marilynmontu</a>：博主最后是拿了O奖嘛~~~                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/yoyodelphine/article/details/52838874#comments">特征选择之 FCBF算法</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/YoYoDelphine" class="user-name" target="_blank">YoYoDelphine</a>：[reply]wzj_110[/reply]
+目标就是指类标签啊。通俗来讲，信息熵就是用来衡量一个...                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/yoyodelphine/article/details/52838874#comments">特征选择之 FCBF算法</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/YoYoDelphine" class="user-name" target="_blank">YoYoDelphine</a>：[reply]LENOVOJXN[/reply]
+已更正额，很抱歉呀                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/yoyodelphine/article/details/52838874#comments">特征选择之 FCBF算法</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/wzj_110" class="user-name" target="_blank">wzj_110</a>：您好，我想问下，计算特征与目标的相关性，其中的目标指的是啥？是类标签还是其他的？看了许多关于信息增...                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//rabc1.iteye.com/source/res/yn6yz.js?ojylrgb=yk"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">
+			<!-- 广告位：PC-博客内页底通 文字链位置 -->
+										<script>
+			var mediav_ad_pub = 'cXt9eo_2313086';
+			var mediav_ad_width = '500';
+			var mediav_ad_height = '36';
+			</script>
+			<script type="text/javascript" language="javascript" charset="utf-8" src="//static.mediav.com/js/mvf_g2.js"></script>
+
+			
+		</span>
+		<div class="pulllog-btn float-right clearfix">
+            <button class="pulllog-login float-left csdn-tracking-statistics tracking-click" data-bind-login= "true" data-mod="popu_557">
+                登录
+            </button>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li class="btn-like-box long-width">
+			<button class=" long-height hover-box btn-like " title="点赞">
+				<svg class="icon active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg>
+				<svg class="icon no-active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<span class="hover-show text-box text">
+					<span class="no-active">点赞</span>
+					<span class="active">取消点赞</span>
+				</span>
+				<p>2</p>
+			</button>
+		</li>
+		<li class="">
+						<a class="btn-comments long-height hover-box" title="写评论" href="#commentBox">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg>
+				<span class="hover-show text">评论</span>
+				<p class="">
+						1				</p>
+			</a>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc low-height hover-box" title="目录">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg>
+				<span class="hover-show text">目录</span>
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark low-height hover-box" title="收藏">
+				<svg class="icon active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg>
+				<svg class="icon no-active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg>
+					<span class="hover-show text">收藏</span>
+				<!-- <span class="hover-show text-box text">
+					<span class="no-active">收藏</span>
+					<span class="active">取消收藏</span>
+				</span> -->
+			</button>
+		</li>
+				<li class="bdsharebuttonbox">
+			<button class="btn-comments low-height hover-box" >
+				<a href="#" class="bds_weixin clear-share-style" data-cmd="weixin" title="手机看"></a>
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg>
+				<span class="hover-show text text3">
+					手机看
+				</span>
+			</button>
+		</li>
+							<li class="widescreen-hide">
+				<a class="btn-comments low-height hover-box" href="https://blog.csdn.net/yoyodelphine/article/details/52888342" title="机器学习笔记（三）牛顿法和梯度下降法">
+					<svg class="icon hover-hide" aria-hidden="true">
+						<use xlink:href="#csdnc-shangyiye"></use>
+					</svg>
+					<span class="hover-show text text3">上一篇</span>
+				</a>
+			</li>
+								<li class="widescreen-hide">
+			<a class="btn-comments hover-box low-height" href="https://blog.csdn.net/yoyodelphine/article/details/53311380" title="[服务器小笔记]Ubuntu配置numpy等环境">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-xiayiye"></use>
+				</svg>
+				<span class="hover-show text text3">下一篇</span>
+			</a>
+		</li>
+						<li class="bdsharebuttonbox _360_interactive"style="margin-top: 8px;">
+			<script type="text/javascript" src="//cjhd.mediav.com/js/interactive_plugin.js"></script> 
+			<style>
+				#_360_interactive > *{
+					 margin-left: -8px;
+				}
+			</style>
+			<div id="_360_interactive" > 
+				<script> INTERACTIVE_PLUGIN.render({ showid : 'N0ufqn', w: 60, h: 60, type: 'click', placeholderId: '_360_interactive' }); </script> 
+			</div>
+			<img src="//img-ads.csdn.net/2016/201608021757063065.png" style="margin: 0 auto;display: block;" alt="">
+		</li>
+	  
+		<!-- 宽屏更多按钮 -->
+		<li class="widescreen-more">
+			<a class="btn-comments chat-ask-button low-height hover-box" title="快问" href="#chatqa">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-more"></use>
+				</svg>
+				<span class="hover-show text">更多</span>
+				
+			</a>
+			<ul class="widescreen-more-box">
+													<li class="widescreen-more">
+						<a class="btn-comments low-height hover-box" href="https://blog.csdn.net/yoyodelphine/article/details/52888342" title="机器学习笔记（三）牛顿法和梯度下降法">
+							<svg class="icon hover-hide" aria-hidden="true">
+								<use xlink:href="#csdnc-shangyiye"></use>
+							</svg>
+							<span class="hover-show text text3">上一篇</span>
+						</a>
+					</li>
+																<li class="widescreen-more">
+					<a class="btn-comments hover-box low-height" href="https://blog.csdn.net/yoyodelphine/article/details/53311380" title="[服务器小笔记]Ubuntu配置numpy等环境">
+						<svg class="icon hover-hide" aria-hidden="true">
+							<use xlink:href="#csdnc-xiayiye"></use>
+						</svg>
+						<span class="hover-show text text3">下一篇</span>
+					</a>
+				</li>
+							</ul>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = "元胞自动机";
+    var ChannelId = 7;
+    var articleId = "53136900";
+    var commentscount = 1;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/YoYoDelphine/article/details/53136900";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "%E5%85%83%E8%83%9E%E8%87%AA%E5%8A%A8%E6%9C%BA%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8";
+    var needInsertBaidu = false;
+    // 代码段样式
+    var codeStyle = '';
+		var highlight = ["\u5143\u80de","\u81ea\u52a8\u673a"];//高亮数组
+		// 相关推荐博主数据
+    var RecommendBlogExpertList = [{"user_name":"fengsigaoju","nick_name":"fengsigaoju","avatar":"https:\/\/avatar.csdn.net\/9\/6\/6\/3_fengsigaoju.jpg","is_expert":false,"article_count":239},{"user_name":"xiaoheixiongxiong","nick_name":"xiaoheixiongxiong","avatar":"https:\/\/avatar.csdn.net\/A\/8\/F\/3_xiaoheixiongxiong.jpg","is_expert":false,"article_count":1},{"user_name":"u012436908","nick_name":"\u8d77\u4e2a\u540d\u771f\u96beT_T","avatar":"https:\/\/avatar.csdn.net\/D\/6\/8\/3_u012436908.jpg","is_expert":false,"article_count":31},{"user_name":"s58951231","nick_name":"s58951231","avatar":"https:\/\/avatar.csdn.net\/A\/8\/9\/3_s58951231.jpg","is_expert":false,"article_count":2},{"user_name":"chankuang2008","nick_name":"KK\u5321","avatar":"https:\/\/avatar.csdn.net\/9\/0\/0\/3_chankuang2008.jpg","is_expert":false,"article_count":33},{"user_name":"qq_22187867","nick_name":"\u8ffd\u661f\u9010\u6708\u4e36","avatar":"https:\/\/avatar.csdn.net\/5\/9\/C\/3_qq_22187867.jpg","is_expert":false,"article_count":18},{"user_name":"qq_22238021","nick_name":"Unique-You","avatar":"https:\/\/avatar.csdn.net\/3\/6\/E\/3_qq_22238021.jpg","is_expert":false,"article_count":306},{"user_name":"qq_41093189","nick_name":"\u8d39\u9a6c\u6700\u540e\u5b9a\u7406","avatar":"https:\/\/avatar.csdn.net\/C\/8\/4\/3_qq_41093189.jpg","is_expert":false,"article_count":61},{"user_name":"yogima","nick_name":"yogima","avatar":"https:\/\/avatar.csdn.net\/A\/3\/9\/3_yogima.jpg","is_expert":false,"article_count":79},{"user_name":"jake2658","nick_name":"\u7075\u9b42\u706b\u7130","avatar":"https:\/\/avatar.csdn.net\/B\/0\/9\/3_jake2658.jpg","is_expert":false,"article_count":31}];
+		
+		var articleType = 1;
+		var CopyrightContent = '本文为博主原创文章，未经博主允许不得转载。';
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.4/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,"元胞自动机");
+        }
+    })
+</script>
+<script src="https://g.csdnimg.cn/login-box/1.0.0/login-box.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-3817a3ac68.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-ad1d4b11a1.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-9376486353.min.js"></script>
+<script src="https://csdnimg.cn/search/baidu_search-1.1.2.js?v=201802071056&autorun=true&install=true&keyword=%E5%85%83%E8%83%9E%E8%87%AA%E5%8A%A8%E6%9C%BA%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8"  type="text/javascript"></script>
+</body>
+<!-- 第四范式SDK -->
+
+<!-- 高亮未与 markdown兼容  -->
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            "HTML-CSS": {
+                    linebreaks: { automatic: true, width: "94%container" },
+                    imageFont: null
+            },
+            tex2jax: {
+                preview: "none"
+            },
+            mml2jax: {
+                preview: 'none'
+            }
+    });
+</script>
+</html>

@@ -1,0 +1,1247 @@
+<!doctype html>
+<html>
+  <head>
+    <title>CN105243186A - 基于元胞自动机的扩散模拟方法 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/CN105243186A/zh">
+    <meta name="description" content="
+     本发明揭示了一种基于元胞自动机的扩散模拟方法，其包括如下步骤：步骤一，构造二维元胞自动机；步骤二，构造扩散模式的运行机制；步骤三，构造扩散模拟的实时动态控制机制；步骤四，开发集成的GUI建模与仿真平台。本发明采用二维元胞自动机进行各种扩散过程的建模和仿真，从元胞自动机的构建、元胞局部动态规则设置、扩散模式设置等方面提供一个方法框架，同时为该方法框架的实现提供一个集成GUI平台，从而实现各种扩散过程的实时动态模拟。 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="基于元胞自动机的扩散模拟方法 
+       ">
+    
+    <meta name="DC.date" content="2015-09-11" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     本发明揭示了一种基于元胞自动机的扩散模拟方法，其包括如下步骤：步骤一，构造二维元胞自动机；步骤二，构造扩散模式的运行机制；步骤三，构造扩散模拟的实时动态控制机制；步骤四，开发集成的GUI建模与仿真平台。本发明采用二维元胞自动机进行各种扩散过程的建模和仿真，从元胞自动机的构建、元胞局部动态规则设置、扩散模式设置等方面提供一个方法框架，同时为该方法框架的实现提供一个集成GUI平台，从而实现各种扩散过程的实时动态模拟。 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="CN: 201510577735">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/d7/f4/13/61c04b366bd5b0/CN105243186A.pdf">
+    
+    <meta name="citation_patent_publication_number" content="CN:105243186:A">
+    
+    <meta name="DC.date" content="2016-01-13">
+    
+    <meta name="DC.contributor" content="艾矫燕" scheme="inventor">
+    
+    <meta name="DC.contributor" content="韦宗明" scheme="inventor">
+    
+    <meta name="DC.contributor" content="吴思知" scheme="inventor">
+    
+    <meta name="DC.contributor" content="徐海扬" scheme="inventor">
+    
+    <meta name="DC.contributor" content="周永华" scheme="inventor">
+    
+    <meta name="DC.contributor" content="李修华" scheme="inventor">
+    
+    <meta name="DC.contributor" content="广西大学" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:4809202" scheme="references">
+    
+    <meta name="DC.relation" content="KR:20020004022:A" scheme="references">
+    
+    <meta name="DC.relation" content="CN:101540008:A" scheme="references">
+    
+    <meta name="citation_reference" content="张宏军等: &#34;扩散系统的元胞自动机模拟&#34;, 《安徽教育学院学报》" scheme="references">
+    
+    <meta name="citation_reference" content="徐智: &#34;基于元胞自动机的人群控制理论建模与仿真&#34;, 《中国优秀硕士学位论文全文数据库信息科技辑》" scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20181001_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "us,ep,wo,cn,ca,de,jp,kr,es,gb,be,dk,fi,fr,lu,nl,ru";
+      
+      window.experiments.enableSuggestions = true;
+      
+      
+      window.experiments.enableQueryURLSerialized = true;
+      
+      
+      window.experiments.enableSortByDate = true;
+      
+      
+      window.experiments.enableCoverageStats = true;
+      
+      
+      window.experiments.enableDownloadResults = true;
+      
+      
+      window.experiments.enableBooleanSearch = true;
+      
+      
+      
+      window.importUI = true;
+      
+      
+      window.profilePicture = "https:\/\/lh4.googleusercontent.com\/-CYlnBinyni4\/AAAAAAAAAAI\/AAAAAAAAAAA\/_PKh-NmxY_g\/s32-c-mo\/p.png?sourceid=navclient";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20181001_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20181001_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20181001_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">CN105243186A - 基于元胞自动机的扩散模拟方法 
+        - Google Patents</h1>
+  <span itemprop="title">基于元胞自动机的扩散模拟方法 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/d7/f4/13/61c04b366bd5b0/CN105243186A.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">CN105243186A</dd>
+    <meta itemprop="numberWithoutCodes" content="105243186">
+    <meta itemprop="kindCode" content="A">
+    
+    <span>CN105243186A</span>
+    
+    <span>CN 201510577735</span>
+    
+    <span>CN201510577735A</span>
+    
+    <span>CN105243186A</span>
+    
+    <span>CN 105243186 A</span>
+    
+    <span>CN105243186 A</span>
+    
+    <span>CN 105243186A</span>
+    
+    <span>CN 201510577735 </span>
+    
+    <span>CN201510577735 </span>
+    
+    <span>CN 201510577735</span>
+    
+    <span>CN 201510577735 A</span>
+    
+    <span>CN201510577735 A</span>
+    
+    <span>CN 201510577735A</span>
+    
+    <span>CN 105243186 A</span>
+    
+    <span>CN105243186 A</span>
+    
+    <span>CN 105243186A</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">CN</dd>
+
+    <dt>Grant status</dt>
+    <dd>
+      
+      Application
+      <meta itemprop="isApplication" content="true" bool>
+      
+    </dd>
+
+    <dt>Patent type</dt>
+    <dd>
+      
+      <meta itemprop="isDesign" content="false" bool>
+      
+    </dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>diffusion</dd>
+    <dd itemprop="priorArtKeywords" repeat>simulation</dd>
+    <dd itemprop="priorArtKeywords" repeat>cellular</dd>
+    <dd itemprop="priorArtKeywords" repeat>step</dd>
+    <dd itemprop="priorArtKeywords" repeat>real</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2015-09-11">2015-09-11</time></dd>
+
+    
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">CN 201510577735</dd>
+
+  <dt>Other languages</dt>
+  <dd itemprop="otherLanguages" itemscope repeat>
+    <a href="/patent/CN105243186A/en">
+      <span itemprop="name">English</span> (<span itemprop="code">en</span>)
+    </a>
+  </dd>
+
+  
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>艾矫燕</dd>
+  <dd itemprop="inventor" repeat>韦宗明</dd>
+  <dd itemprop="inventor" repeat>吴思知</dd>
+  <dd itemprop="inventor" repeat>徐海扬</dd>
+  <dd itemprop="inventor" repeat>周永华</dd>
+  <dd itemprop="inventor" repeat>李修华</dd>
+  
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>广西大学</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2015-09-11">2015-09-11</a></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2015-09-11">2015-09-11</a></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2016-01-13">2016-01-13</time></dd>
+
+  
+
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+
+    <li itemprop="links" itemscope repeat>
+      <meta itemprop="id" content="espacenetLink">
+      <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=CN&amp;NR=105243186A&amp;KC=A&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+    </li>
+    
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="globalDossierLink">
+        <a href="http://globaldossier.uspto.gov/#/result/publication/CN/105243186/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+      <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="stackexchangeLink">
+        <a href="https://patents.stackexchange.com/questions/tagged/CN105243186A" itemprop="url"><span itemprop="text">Discuss</span></a>
+      </li>
+  </ul>
+
+  
+
+  
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA167624140" lang="ZH" load-source="patent-office">
+    <div class="abstract">本发明揭示了一种基于元胞自动机的扩散模拟方法，其包括如下步骤：步骤一，构造二维元胞自动机；步骤二，构造扩散模式的运行机制；步骤三，构造扩散模拟的实时动态控制机制；步骤四，开发集成的GUI建模与仿真平台。本发明采用二维元胞自动机进行各种扩散过程的建模和仿真，从元胞自动机的构建、元胞局部动态规则设置、扩散模式设置等方面提供一个方法框架，同时为该方法框架的实现提供一个集成GUI平台，从而实现各种扩散过程的实时动态模拟。</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES99528497" lang="ZH" load-source="patent-office" class="description">
+    <invention-title lang="ZH">基于元胞自动机的扩散模拟方法</invention-title>
+    <technical-field>
+      <p>技术领域</p>
+      <p>[0001] 本发明涉及扩散现象的二维动态模拟，尤其涉及基于元胞自动机的扩散模拟方 法。</p>
+    </technical-field>
+    <background-art>
+      <p>背景技术</p>
+      <p>[0002] 扩散指物质、动量、能量或信息等随着时间的迀移从一个区域向其他区域转移、传 播的现象，如污染物在大气、水体、土壤等介质中的扩散。扩散现象是一个时空动态变化的 复杂过程，其复杂性体现为扩散过程受扩散物质、扩散介质、扩散条件以及区域环境等各因 素综合影响，具有随机性、动态性、非线性、涌现性、演化性等复杂特性，因此，很难用传统的 宏观模型对其进行有效的实时动态模拟。目前采用的模拟方法大多数是基于其统计特性确 定过程的控制方程组，再采用数值计算方法求解方程组，该方法的弊端是准确度不高、适应 性不强、模型结构及计算复杂，同时很难实现真正意义上的实时动态模拟。</p>
+    </background-art>
+    <disclosure>
+      <p>发明内容</p>
+      <p>[0003] 本发明的目的在于针对现有技术中的上述缺陷，提供一种基于元胞自动机的扩散 模拟方法，该方法通过元胞与其邻域之间的局部动态规则来涌现整个空间的宏观现象，能 够更好地模拟研究对象的复杂运动过程。</p>
+      <p>[0004] 为实现上述发明目的，本发明采用了如下技术方案，一种基于元胞自动机的扩散 模拟方法，按如下步骤进行：</p>
+      <p>[0005] 步骤一，二维元胞自动机的构造：</p>
+      <p>[0006] 在MATLAB软件中定义二维矩阵作为元胞空间，矩阵的每个元素代表一个元胞，其 相邻的8个元素代表元胞邻居，元素值为元胞状态。通过构造位移矩阵后采用矩阵差分的 形式并行计算状态转移函数，实现所有元胞状态的快速更新。上述构造通过设计相应的参 数并由GUI建模与仿真平台输入MATLAB程序实现，设置元胞基本参数：</p>
+      <p>[0007] cellspacelengthcolumns:设置元胞空间的长（矩阵列数）；</p>
+      <p>[0008] cellspacewidthrows:设置元胞空间的宽（矩阵行数）；</p>
+      <p>[0009] seedpositionrow:设置扩散源位置对应于元胞空间的行数；</p>
+      <p>[0010] seedpositioncolumn:设置扩散源位置对应于元胞空间的列数；</p>
+      <p>[0011] seedsize:设置扩散源的大小；</p>
+      <p>[0012]seeddensity:设置扩散源的强度；</p>
+      <p>[0013] emergencydiffusion:定义瞬时一次性释放扩散方式；</p>
+      <p>[0014] continuousdiffusion:定义持续性多次释放扩散方式，并设置持续排放次数；</p>
+      <p>[0015]MultiCASeed:添加多个扩散源，分别设置扩散源所在位置的行（row)和列 (column)；</p>
+      <p>[0016] 如果是非点源，贝丨】在non-pointsourceparameters:设置非点源的基本参数；</p>
+      <p>[0017]importanon-pointsourcepicture:导入包含非点源所在区域的图片；</p>
+      <p>[0018] definenon-pointsource:定义非点源区域基本参数。</p>
+      <p>[0019] 步骤二，扩散模式的运行机制构造：</p>
+      <p>[0020] 通过提供扩散源、扩散方式和扩散系数的设置组合来模拟各种不同模式的扩散过 程。扩散源即为元胞自动机中的种子元胞，通过对二维矩阵中对应元素赋值的操作，可设置 一个或多个扩散源的位置、形状、大小、强度。扩散方式有两种：瞬时一次性释放后的扩散 (emergency_diffusion)和持续性多次释放后的扩散（continuous_diffusion)，通过编写 定时器的回调函数来实现其操作。扩散系数即为元胞状态向其8个邻居方向进行扩散的比 率，设计相应的参数输入控件来进行设置，通过其设置可实现恒定方向，非恒定方向或不确 定方向的扩散。基本扩散参数的设置：</p>
+      <p>[0021] up:设置向上的扩散系数；</p>
+      <p>[0022] down:设置向下的扩散系数；</p>
+      <p>[0023]left:设置向左的扩散系数；</p>
+      <p>[0024] right:设置向右的扩散系数；</p>
+      <p>[0025]upleft:设置向左上角的扩散系数；</p>
+      <p>[0026] upright:设置向右上角的扩散系数；</p>
+      <p>[0027] downleft:设置向左下角的扩散系数；</p>
+      <p>[0028] downright:设置向右下角的扩散系数；</p>
+      <p>[0029] 如果存在湍流，则设置湍流扩散参数；</p>
+      <p>[0030] addturbulent:添加端流模式；</p>
+      <p>[0031] turbulentarea:单击后设置端流大小和位置；</p>
+      <p>[0032] topleftpositionrow:设置端流区域左上角顶点所在位置对应的行数；</p>
+      <p>[0033]topleftpositioncolumn:设置端流区域左上角顶点所在位置对应的列数；</p>
+      <p>[0034]length(columns):设置端流区域的长度（列数）；</p>
+      <p>[0035]width(rows):设置端流区域的宽度（行数）；</p>
+      <p>[0036]importpattern:导入端流扩散系数矩阵。</p>
+      <p>[0037] 扩散次数以及间隔时间设置：</p>
+      <p>[0038]executingtimes:设置扩散运行的次数；</p>
+      <p>[0039]repeatinterval:设置相邻两次扩散的时间间隔，单位为：秒。</p>
+      <p>[0040] 步骤三，扩散模拟的实时动态控制机制：</p>
+      <p>[0041] 利用MATLAB提供的定时器对象，实现模拟过程的实时图形显示、开始、暂停、继 续、停止等过程控制。实现机制为：创建一个定时器实例，将元胞自动机以及扩散模式的设 置参数以及其他模拟过程中需用到的参数写入定时器的userdata，整个模拟过程中以它作 为数据交换接口。开始时，启动定时器，在其回调函数中运行设定的扩散方式并实时显示扩 散结果。如暂停，则将当前状态保存在userdata，继续时，将新设置读入后在原状态上继续 模拟。停止时，则删除该定时器实例，为下一次模拟清除内存。具体实现如下：</p>
+      <p>[0042]1.从userdata中读取扩散方式并判断，如果是瞬时一次性扩散，则执行回调函数 emergencydiffusion，如果为持续性扩散，贝执行回调函数continuousdiffusion;</p>
+      <p>[0043] 2.函数开始执行，从userdata中读取元胞扩散参数；</p>
+      <p>[0044] 3.读入元胞空间矩阵current_cellspace;</p>
+      <p>[0045] 4.构建 8 个方向的位移矩阵（spaceup，spacedown，spaceleft，spaceright， spaceupleft,spaceupright,spacedownleft,spacedownright)；</p>
+      <p>[0046] 5.根据8个方向扩散系数、位移矩阵及矩阵差分构造的转移函数实现元胞状态的 并行更新：</p>
+      <p>[0047] newspace=space+(up*(spaceup-space)+down*(spacedown-space)+left* ( spaceleft-space)+right*(spaceright+(-space))+upleft*(spaceupleft-space)+up right* (spaceupright-space)+downleft* (spacedownleft-space)+downright*(space downright-space))；</p>
+      <p>[0048] 6.判断是否存在湍流，如果存在，则读取湍流区域的大小及其左上角位置 (tposition)以及userdata中的端流区域扩散系数矩阵；构建端流区域的8个方向位移矩 阵(tspaceup,tspacedown,tspaceleft,tspaceright,tspaceupleft,tspaceupright, tspacedownleft，tspacedownright);然后实现端流区域元胞状态的并行更新：</p>
+      <p>[0049] tnewspace=tspace+(tup. *(tspaceup-tspace)+tdown. *(tspacedown-tspace) +tleft. * (tspaceleft-tspace)+tright. *(tspaceright-tspace)+tupleft.*(tspaceuple ft-tspace)+tupright. *(tspaceupright-tspace)+tdownleft. *(tspacedownleft-tspace )+tdownright. *(tspacedownright-tspace))</p>
+      <p>[0050] 将更新后的矩阵赋值给元胞空间中湍流区域：</p>
+      <p>[0051] newspace(tposition(1) :tposition(l)+tr_l，tposition(2)： tposition(2)+tc_l) =tnewspace；</p>
+      <p>[0052] 7.保存扩散后各个元胞的状态值；</p>
+      <p>[0053] 8.计算当前的扩散次数并保存；</p>
+      <p>[0054] 9.将得到的newspace矩阵用灰度图显示在软件的窗口，并将图片存于计算机指 定路径下；</p>
+      <p>[0055] 10.将更新后的数据存于userdata中，用于下一次的扩散；</p>
+      <p>[0056] 11.如果是瞬时一次性扩散，则直接进入下一次扩散；如果是持续性扩散，则需要 从userdata中读取持续扩散次数，获取元胞种子的浓度将其置为设定的浓度再进入下一 次扩散，直至完成持续扩散次数。</p>
+      <p>[0057] 步骤四，开发集成的GUI建模与仿真平台：</p>
+      <p>[0058] 通过GUI建模与仿真平台实现各种不同模式扩散过程模拟的参数设置、实时图形 显示以及过程控制等功能，各功能区实现的功能与具体操作如下，</p>
+      <p>[0059] 1.定时器设置与时间显示区包括：</p>
+      <p>[0060] TimerParameterSet设置区域以及ExecuteTimes与CurrentTime的显不区 域；</p>
+      <p>[0061]timestoexecute:设置扩散运行的次数；</p>
+      <p>[0062]repeatinterval:设置相邻两次扩散的时间间隔，单位为秒；</p>
+      <p>[0063] ExecuteTimes:显示已执行扩散的次数；</p>
+      <p>[0064] CurrentTime:显示计算机的当前日期和时间。</p>
+      <p>[0065]2.元胞自动机参数设置区包括：</p>
+      <p>[0066] 基本参数设置、基本扩散参数设置、湍流扩散参数设置、缺省值按钮、参数检查按 钮。其中，</p>
+      <p>[0067] (1)基本参数设置：</p>
+      <p>[0068] cellspacelengthcolumns:设置元胞空间的长（矩阵列数）；</p>
+      <p>[0069] cellspacewidthrows:设置元胞空间的宽（矩阵行数）；</p>
+      <p>[0070] seedpositionrow:设置扩散源位置对应于元胞空间的行数；</p>
+      <p>[0071] seedpositioncolumn:设置扩散源位置对应于在元胞空间的列数；</p>
+      <p>[0072] seedsize:设置扩散源的大小；</p>
+      <p>[0073] seeddensity:设置扩散源的强度；</p>
+      <p>[0074] emergencydiffusion:定义瞬时一次性释放扩散方式；</p>
+      <p>[0075] continuousdiffusion:定义持续性多次释放扩散方式，选择该选项后弹出窗口， 输入持续排放次数；</p>
+      <p>[0076] MultiCASeed:添加多个扩散源，并在弹出窗口的row和column中分别设置扩散 源所在位置的行和列；</p>
+      <p>[0077] non-pointsourceparameters:设置非点源的基本参数；</p>
+      <p>[0078] importanon-pointsourcepicture:导入包含非点源所在区域的图片；</p>
+      <p>[0079] definenon-pointsource:定义非点源区域。</p>
+      <p>[0080] (2)基本扩散参数设置：</p>
+      <p>[0081] up:设置向上的扩散系数；</p>
+      <p>[0082] down:设置向下的扩散系数；</p>
+      <p>[0083] left:设置向左的扩散系数；</p>
+      <p>[0084] right:设置向右的扩散系数；</p>
+      <p>[0085] upleft:设置向左上角的扩散系数；</p>
+      <p>[0086] upright:设置向右上角的扩散系数；</p>
+      <p>[0087] downleft:设置向左下角的扩散系数；</p>
+      <p>[0088] downright:设置向右下角的扩散系数。</p>
+      <p>[0089] (3)湍流扩散参数设置：</p>
+      <p>[0090] addturbulent:添加端流模式；</p>
+      <p>[0091] turbulentarea:单击后设置端流大小和位置；</p>
+      <p>[0092] topleftpositionrow:设置端流区域左上角顶点所在位置对应的行数；</p>
+      <p>[0093] topleftpositioncolumn:设置端流区域左上角顶点所在位置对应的列数；</p>
+      <p>[0094] length(columns):设置端流区域的长度（列数）；</p>
+      <p>[0095] width(rows):设置端流区域的宽度（行数）；</p>
+      <p>[0096] importpattern:导入端流扩散系数矩阵。</p>
+      <p>[0097] 3.模拟过程控制区：</p>
+      <p>[0098] start:开始运行扩散模拟；</p>
+      <p>[0099] pause:暂停扩散，暂停后可修改参数；</p>
+      <p>[0100]continue:继续扩散，如果参数变化则按照新参数继续扩散；</p>
+      <p>[0101] stop:终止扩散模拟；</p>
+      <p>[0102] exit:退出软件。</p>
+      <p>[0103] 4.扩散图形显示区域：该区域包括一个扩散图形的显示窗口以及一个多用途窗 口（可用于显示所选湍流模式或者用于定义非点源）。</p>
+      <p>[0104] 相比于现有技术，本发明的优势在于：本发明采用二维元胞自动机进行各种扩散 过程的建模和仿真，从元胞自动机的构建、元胞局部动态规则设置、扩散模式设置等方面提 供一个方法框架，同时为该方法框架的实现提供一个集成GUI平台，从而实现各种扩散过 程的实时动态模拟。</p>
+      <p>[0105] 并且，本发明的元胞自动机扩散模型是将扩散过程的局部动态变化用合理的状态 转移规则进行量化描述，使得元胞空间的时空动态格局符合研究区域扩散过程的动态变 化。</p>
+    </disclosure>
+    <description-of-drawings>
+      <p>附图说明</p>
+      <p>[0106] 图1是二维元胞自动机构成流程图。</p>
+      <p>[0107] 图2是Moore型元胞邻居。</p>
+      <p>[0108] 图3是元胞自动机扩散模型的扩散过程。</p>
+      <p>[0109] 图4是扩散模式的设置。</p>
+      <p>[0110] 图5是扩散模拟过程的实时控制流程。</p>
+      <p>[0111] 图6是⑶I建模与仿真平台开发流程。</p>
+      <p>[0112] 图7是⑶I建模与仿真平台软件界面。</p>
+      <p>[0113] 图8是某工业区图及网格图。</p>
+      <p>[0114] 图9是静风点源扩散图。</p>
+      <p>[0115] 图10是有风点源瞬时排放扩散图。</p>
+      <p>[0116] 图11是有风点源持续排放扩散图。</p>
+      <p>[0117] 图12是湍流模式。</p>
+      <p>[0118] 图13是湍流模式的扩散源位置。</p>
+      <p>[0119] 图14是湍流模式的瞬时扩散过程图。</p>
+      <p>[0120] 图15是湍流模式的持续扩散过程图。</p>
+    </description-of-drawings>
+    <mode-for-invention>
+      <p>具体实施方式</p>
+      <p>[0121] 以下结合较佳实施例及其附图对本发明技术方案作进一步非限制性的详细说明。</p>
+      <p>[0122] 本发明采用二维元胞自动机构建扩散模型，其构成如图1所示。将研究区域进行 矩形网格划分得到模型的元胞空间，每个矩形网格表示一个元胞。元胞邻居采用二维Moore 型，每个元胞共有8个邻居，如图2所示。以所研究的扩散物质（或动量、能量等）的属性 值（譬如物质浓度）作为元胞状态，构建状态转移规则如式：</p>
+      <p>[0123]</p>
+      <p>[0124] {ke[i-1,i,i+1], 1e[j-1,j,j+1],k, 1 ^i,j}</p>
+      <p>[0125] 上式中虼表示元胞在t时刻的状态，:¾表示其Moore型邻居的元胞状态。C: 表示t时刻元胞与其邻居之间的状态转移系数，其值可以是常数也可以是函数，反映各种 扩散过程中相邻元胞之间的局部动态交互，me{:上，下，左，右，左上，左下，右上，右下}分 别表示4个正方向与4个斜角方向。根据上述模型t时刻的元胞空间格局就可以经状态转 移规则计算扩散到t+Ι时刻的元胞空间格局，依此类推，其过程如图3所示。</p>
+      <p>[0126] 构造了各种扩散模式的运行机制，通过提供扩散源、扩散系数、扩散方式的设置组 合，来模拟各种模式的扩散，如一次性点源或面源释放扩散、持续性点源或面源释放恒定方 向扩散、持续性点源或面源释放非恒定方向扩散以及非确定方向（湍流）扩散等。扩散模 式的设置如附图4.</p>
+      <p>[0127] 构造了扩散模拟的实时动态控制机制，利用定时器对象的特性，进行模拟过程的 实时图形显示以及开始、暂停、继续等操作实现模拟过程的实时动态性和可控性。具体的模 拟过程实时控制如附图5.</p>
+      <p>[0128] 开发了集成的GUI建模与仿真平台实现相关参数设置、图形显示以及模拟过程控 制等功能。平台开发流程如附图6。平台软件界面见附图7,共分为4个功能区：（1)定时 器设置与时间显示区；（2)模型构建与运行参数设置区；（3)模拟过程控制区；(4)图形显 示区。本发明提供的GUI建模与仿真平台操作简便，运行速度快，可实时动态显示和控制各 种扩散过程的模拟，模拟结果合理可信，为各种扩散现象的研究提供有力工具。</p>
+      <p>[0129] 以北方某市某工业园区大气污染扩散为例。</p>
+      <p>[0130] 1.构造元胞自动机模型</p>
+      <p>[0131] 图8为北方某市某工业园区，其中（a)为该区域卫星图，（b)为该区域的网格划分 示意图。整个区域横向跨度为12千米，纵向跨度为8千米，用400X600个正方形网格划分 研究区域，得到每个网格大小为20X20平方米的元胞空间。鉴于显示需要，图8(b)中每个 方格代表20X20个元胞。</p>
+      <p>[0132] 该区的污染源每年排放的S02为1093. 6t，S02排放浓度为82. 8mg/m3。于是，以 污染物的浓度作为元胞的状态，令当量化之后的源强〇. 1表示〇. 〇〇〇68t的S02，污染源大小 为9个（即3X3)元胞；模型运行480次代表污染废气扩散1日。</p>
+      <p>[0133] 根据大气扩散原理，扩散系数由污染物浓度扩散（类似分子扩散）以及风与 湍流因素决定，其中κ表示t时刻元胞与其邻居之间的污染物浓度转 移系数，Ci为浓度扩散系数，为风决定的扩散系数，2：为湍流决定的扩散系数，式中</p>
+      <p>
+        <div class="patent-image"><a href="https://patentimages.storage.googleapis.com/2a/97/a6/c4d51be75158a9/CN105243186AD00081.png"><img id="idf0001" file="CN105243186AD00081.tif" img-content="drawing" img-format="tif" alt="Figure CN105243186AD00081" class="patent-full-image" src="https://patentimages.storage.googleapis.com/2a/97/a6/c4d51be75158a9/CN105243186AD00081.png"/></a></div>
+      </p>
+      <p>分别表示4个正方向与4个斜角方向。不同情形下的 扩散系数不同，所以通过改变扩散系数即可模拟不同的扩散情形。</p>
+      <p>[0134] 综上，设置cellspacelengthcolumns为 600，cellspacewidthrows为 400， seedsize为 3,executingtimes为 1440。</p>
+      <p>[0135] 2.不同扩散模式的参数设置及模拟</p>
+      <p>[0136] 2. 1静风点源排放扩散模拟</p>
+      <p>[0137] 在理想无风情况下，废气的扩散只受到浓度扩散系数的影响。根据 均匀介质的各向同性，污染物扩散近似圆形。设置8个方向的扩散系数为：</p>
+      <p>
+        <div class="patent-image"><a href="https://patentimages.storage.googleapis.com/26/3a/f0/19956776b96c51/CN105243186AD00082.png"><img id="idf0002" file="CN105243186AD00082.tif" img-content="drawing" img-format="tif" alt="Figure CN105243186AD00082" class="patent-full-image" src="https://patentimages.storage.googleapis.com/26/3a/f0/19956776b96c51/CN105243186AD00082.png"/></a></div>
+      </p>
+      <p>[0138] 假设污染源的坐标位于图8(b)中的（10,4)处，对应于元胞空间的位置为（200， 500)，如图9(a)所示，分别对其进行瞬时排放模式和持续排放模式的扩散模拟：</p>
+      <p>[0139] (1)选择扩散模式为瞬时排放emergencydiffusion，排放次数duration为30次， 污染源源强seeddensity为1，程序运行executingtimes为1440次，模拟结果如图9(b)。</p>
+      <p>[0140] (2)选择扩散模式为持续排放continuousdiffusion，排放次数duration为1440 次，污染源源强seeddensity为0. 1，程序运行executingtimes为1440次，模拟结果如图 9(c)所示。</p>
+      <p>[0141] 从图9(b)和图9(c)可以看出，在静风或无风状态下，随着时间的迀移，污染分布 呈现出圆形，污染物浓度值由中心处往两边递减符合高斯分布，与污染物在静风条件下的 扩散相符，同时由于持续性排放的原因，图9(c)中心的浓度明显高于图9(b)瞬时排放扩散 后中心的浓度。</p>
+      <p>[0142] 2. 2有风点源排放扩散模拟</p>
+      <p>[0143] 在有风的情况下，需要考虑扩散系数和，即扩散过程受污染物浓度差与风携 带扩散的共同影响。根据该地2012年5月气象资料，可分别求取5月2日至5月4日模型 的扩散系数：</p>
+      <p>[0144] (1)5月 2 日的扩散系数为{0· 1787,0· 084,0· 084,0· 084,0· 0134,0· 0134,0· 0134， 0. 0134}；</p>
+      <p>[0145] (2)5 月 3 日的扩散系数为{0· 1045,0· 084,0· 1045,0· 084,0· 0134,0· 0134， 0. 0134,0. 0134}；</p>
+      <p>[0146] (3)5月 4 日的扩散系数为{0· 1679,0· 084,0· 084,0· 084,0· 0134,0· 0134,0· 0134， 0· 0134}。</p>
+      <p>[0147] 假设某钢铁厂位于图8(b)中的（10，1. 5)处，对应于元胞空间的位置为（325， 500)。设置模拟运行次数executingtimes为1440次，每480次代表一天。根据上述求取 的参数分别对有风情况下的污染物瞬时排放模式及持续排放模式进行模拟：</p>
+      <p>[0148] (1)选择扩散模式为瞬时排放emergencydiffusion，瞬时排放次数duration为 40,污染源源强seeddensity为1，每运行480次暂停，修改扩散系数后点击继续，结果如图 10。</p>
+      <p>[0149] (2)选择扩散模式为持续排放continuousdiffusion，持续排放次数duration为 1440,污染源强seeddensity为0. 1，每运行480次暂停，修改扩散系数后点击继续，结果如 图11。</p>
+      <p>[0150] 从两种模式下的结果图可以看出，图中污染带的扩散路径为北-西北-北，扩散路 径受实际风向的影响，在风的作用下与风向同向的污染扩散较快，扩散过程中污染物朝与 风向相同的方向移动，符合污染物在5月2日至5月4日的气象条件下的扩散规律。</p>
+      <p>[0151] 2. 3湍流模式下的扩散模拟</p>
+      <p>[0152] 假设该工业区受大气湍流影响，则除了考虑浓度扩散系数之外，还要考虑和，这两 种情况下都是空气流动带动污染物扩散，其扩散系数由风速、风向决定。</p>
+      <p>[0153] 首先importpattern加载端流流场模式，如图12所示，加载的端流流场中包括了 湍流流向和流速两个参数。假设污染源的位置为图8中坐标（1，2)处，对应元胞空间中的 位置为（300, 50)，如图13所示。在湍流模式下，分别对污染物瞬时排放模式及污染物持续 排放模式进行模拟：</p>
+      <p>[0154] (1)选择扩散模式为瞬时排放emergencydiffusion，瞬时排放次数duration为 40,污染源源强seeddensity为1，运行1440次，结果如图14</p>
+      <p>[0155] (2)选择扩散模式为持续排放continuousdiffusion，持续排放次数duration为 1440,污染源强seeddensity为0. 1，运行1440次，结果如图15</p>
+      <p>[0156] 结合图12中湍流场的湍流走势可以看出，在图14污染物扩散的走势与瞬时污染 源所处的湍流运动一致，图15中持续排放模式中污染物的扩散情况与污染源所处在的湍 流场区域中的端流走势一致。</p>
+      <p>[0157] 需要指出的是，上述较佳实施例仅为说明本发明的技术构思及特点，其目的在于 让熟悉此项技术的人士能够了解本发明的内容并据以实施，并不能以此限制本发明的保护 范围。凡根据本发明精神实质所作的等效变化或修饰，都应涵盖在本发明的保护范围之内。</p>
+    </mode-for-invention>
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">1</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM91485884" lang="ZH" load-source="patent-office" class="claims">
+    <div class="claim"> <div num="1" class="claim">
+      <div class="claim-text">1. 一种基于元胞自动机的扩散模拟方法，其特征在于按如下步骤进行：  步骤一，构造二维元胞自动机：以MATLAB软件为平台，定义二维矩阵作为元胞空间，矩 阵的每个元素代表一个元胞，其相邻的8个元素代表元胞邻居，元素值为元胞状态；  步骤二，构造扩散模式的运行机制：通过提供扩散源、扩散方式和扩散系数的设置组合 来模拟各种不同模式的扩散过程；  步骤三，构造扩散模拟的实时动态控制机制：利用MATLAB软件平台提供的定时器对 象，实现模拟过程的实时图形显示、开始、暂停、继续、停止等过程控制；  步骤四，开发集成的GUI建模与仿真平台：利用GUI建模与仿真平台实现各种不同模式 扩散过程模拟的参数设置、实时图形显示以及过程控制。</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">CN 201510577735</span>
+        <span itemprop="priorityDate">2015-09-11</span>
+        <span itemprop="filingDate">2015-09-11</span>
+        <span itemprop="title">基于元胞自动机的扩散模拟方法 
+       </span>
+        
+        
+        <a href="/patent/CN105243186A/zh">
+            <span itemprop="representativePublication">CN105243186A</span>
+            (<span itemprop="primaryLanguage">zh</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">CN 201510577735</span>
+                   
+                   <a href="/patent/CN105243186A/zh">
+                        <span itemprop="representativePublication">CN105243186A</span>
+                          (<span itemprop="primaryLanguage">zh</span>)
+                      </a>
+                <td itemprop="priorityDate">2015-09-11</td>
+                <td itemprop="filingDate">2015-09-11</td>
+                <td itemprop="title">基于元胞自动机的扩散模拟方法 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">CN 201510577735</span>
+                   <a href="/patent/CN105243186A/zh">
+                        <span itemprop="representativePublication">CN105243186A</span>
+                          (<span itemprop="primaryLanguage">zh</span>)
+                      </a>
+                <td itemprop="priorityDate">2015-09-11</td>
+                <td itemprop="filingDate">2015-09-11</td>
+                <td itemprop="title">基于元胞自动机的扩散模拟方法 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">CN105243186A</span>
+                   
+                   <span itemprop="isApplication">true</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/CN105243186A/zh">CN105243186A
+                       (<span itemprop="primaryLanguage">zh</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2016-01-13</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=55040834</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">CN 201510577735</span>
+                    
+                    
+                    <a href="/patent/CN105243186A/zh">
+                        <span itemprop="representativePublication">CN105243186A</span>
+                          (<span itemprop="primaryLanguage">zh</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2015-09-11</td>
+                <td itemprop="filingDate">2015-09-11</td>
+                <td itemprop="title">基于元胞自动机的扩散模拟方法 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">CN</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+              
+              
+            </td>
+            <td>
+              <a href="/patent/CN105243186A/zh">
+                <span itemprop="representativePublication">CN105243186A</span>
+                  (<span itemprop="primaryLanguage">zh</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+
+    <h2>Citations (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4809202A/en">
+              <span itemprop="publicationNumber">US4809202A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1985-12-27</td>
+          <td itemprop="publicationDate">1989-02-28</td>
+          <td><span itemprop="assigneeOriginal">Thinking Machines Corporation</span></td>
+          <td itemprop="title">Method and apparatus for simulating systems described by partial differential equations 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/KR20020004022A/ko">
+              <span itemprop="publicationNumber">KR20020004022A</span>
+              (<span itemprop="primaryLanguage">ko</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-06-29</td>
+          <td itemprop="publicationDate">2002-01-16</td>
+          <td><span itemprop="assigneeOriginal">이상성</span></td>
+          <td itemprop="title">다차원 셀룰라 오토마타를 이용한 난수 발생 방법 및 장치 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN101540008A/zh">
+              <span itemprop="publicationNumber">CN101540008A</span>
+              (<span itemprop="primaryLanguage">zh</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-04-24</td>
+          <td itemprop="publicationDate">2009-09-23</td>
+          <td><span itemprop="assigneeOriginal">北京工业大学</span></td>
+          <td itemprop="title">基于hpp元胞自动机模型的活性污泥净化过程的模拟方法 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4809202A/en">
+              <span itemprop="publicationNumber">US4809202A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1985-12-27</td>
+          <td itemprop="publicationDate">1989-02-28</td>
+          <td><span itemprop="assigneeOriginal">Thinking Machines Corporation</span></td>
+          <td itemprop="title">Method and apparatus for simulating systems described by partial differential equations 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/KR20020004022A/ko">
+              <span itemprop="publicationNumber">KR20020004022A</span>
+              (<span itemprop="primaryLanguage">ko</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-06-29</td>
+          <td itemprop="publicationDate">2002-01-16</td>
+          <td><span itemprop="assigneeOriginal">이상성</span></td>
+          <td itemprop="title">다차원 셀룰라 오토마타를 이용한 난수 발생 방법 및 장치 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN101540008A/zh">
+              <span itemprop="publicationNumber">CN101540008A</span>
+              (<span itemprop="primaryLanguage">zh</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-04-24</td>
+          <td itemprop="publicationDate">2009-09-23</td>
+          <td><span itemprop="assigneeOriginal">北京工业大学</span></td>
+          <td itemprop="title">基于hpp元胞自动机模型的活性污泥净化过程的模拟方法 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (2)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">张宏军等: "<a href='http://scholar.google.com/scholar?q="%E6%89%A9%E6%95%A3%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%85%83%E8%83%9E%E8%87%AA%E5%8A%A8%E6%9C%BA%E6%A8%A1%E6%8B%9F"'>扩散系统的元胞自动机模拟</a>", 《安徽教育学院学报》</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">徐智: "<a href='http://scholar.google.com/scholar?q="%E5%9F%BA%E4%BA%8E%E5%85%83%E8%83%9E%E8%87%AA%E5%8A%A8%E6%9C%BA%E7%9A%84%E4%BA%BA%E7%BE%A4%E6%8E%A7%E5%88%B6%E7%90%86%E8%AE%BA%E5%BB%BA%E6%A8%A1%E4%B8%8E%E4%BB%BF%E7%9C%9F"'>基于元胞自动机的人群控制理论建模与仿真</a>", 《中国优秀硕士学位论文全文数据库信息科技辑》</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2112638324700794621">
+              <a href="/scholar/2112638324700794621"><span itemprop="scholarAuthors">Le Méhauté</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1991">1991</time>
+            
+          </td>
+          <td itemprop="title">Fractal Geometries Theory and Applications</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13937214119121586648">
+              <a href="/scholar/13937214119121586648"><span itemprop="scholarAuthors">Block</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Thrust network analysis: exploring three-dimensional equilibrium</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5583381847040782303">
+              <a href="/scholar/5583381847040782303"><span itemprop="scholarAuthors">Randall et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2002">2002</time>
+            
+          </td>
+          <td itemprop="title">Climate modeling with spherical geodesic grids</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2399144347437720577">
+              <a href="/scholar/2399144347437720577"><span itemprop="scholarAuthors">Lin et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1989">1989</time>
+            
+          </td>
+          <td itemprop="title">SILK: A simulated evolution router</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12552530457663148189">
+              <a href="/scholar/12552530457663148189"><span itemprop="scholarAuthors">Yi et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Optimizing building form for energy performance based on hierarchical geometry relation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13367381612538555073">
+              <a href="/scholar/13367381612538555073"><span itemprop="scholarAuthors">Smelik et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2014">2014</time>
+            
+          </td>
+          <td itemprop="title">A survey on procedural modelling for virtual worlds</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11345649469023682152">
+              <a href="/scholar/11345649469023682152"><span itemprop="scholarAuthors">Guo et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1991">1991</time>
+            
+          </td>
+          <td itemprop="title">Modeling the diffuse paintings of ‘Sumie’</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15256816207013013578">
+              <a href="/scholar/15256816207013013578"><span itemprop="scholarAuthors">Stam</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Real-time fluid dynamics for games</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1591812425145758064">
+              <a href="/scholar/1591812425145758064"><span itemprop="scholarAuthors">Itami</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1994">1994</time>
+            
+          </td>
+          <td itemprop="title">Simulating spatial dynamics: cellular automata theory</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6985148B2/en">
+                <span itemprop="publicationNumber">US6985148B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-01-10">2006-01-10</time>
+            
+            
+          </td>
+          <td itemprop="title">Interactive water effects using texture coordinate shifting 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="569087739723755691">
+              <a href="/scholar/569087739723755691"><span itemprop="scholarAuthors">Shi et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Performance-driven architectural design and optimization technique from a perspective of architects</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6270676473860214985">
+              <a href="/scholar/6270676473860214985"><span itemprop="scholarAuthors">Bandini et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">Cellular automata: From a theoretical parallel computational model to its application to complex systems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6535036744130835558">
+              <a href="/scholar/6535036744130835558"><span itemprop="scholarAuthors">Fan et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">GPU cluster for high performance computing</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14070860231640118031">
+              <a href="/scholar/14070860231640118031"><span itemprop="scholarAuthors">Chang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Cellular automata for edge detection of images</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17521954848820722853">
+              <a href="/scholar/17521954848820722853"><span itemprop="scholarAuthors">Musgrave</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1993">1993</time>
+            
+          </td>
+          <td itemprop="title">Methods for realistic landscape imaging</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13423909341562280457">
+              <a href="/scholar/13423909341562280457"><span itemprop="scholarAuthors">Lagios et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Animated building performance simulation (ABPS)–linking Rhinoceros/Grasshopper with Radiance/Daysim</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11543450451223440706">
+              <a href="/scholar/11543450451223440706"><span itemprop="scholarAuthors">Rippmann et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">Interactive vault design</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN1987906A/zh">
+                <span itemprop="publicationNumber">CN1987906A</span>
+                (<span itemprop="primaryLanguage">zh</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2007-06-27">2007-06-27</time>
+            
+            
+          </td>
+          <td itemprop="title">土地利用变化动态预测的方法 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16050076485496892499">
+              <a href="/scholar/16050076485496892499"><span itemprop="scholarAuthors">Fast et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">A Lagrangian particle dispersion model compatible with WRF</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14791230554538778124">
+              <a href="/scholar/14791230554538778124"><span itemprop="scholarAuthors">Yu et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">Methodology for standard cell compliance and detailed placement for triple patterning lithography</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7247801075556908977">
+              <a href="/scholar/7247801075556908977"><span itemprop="scholarAuthors">Slingo et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Developing the next-generation climate system models: challenges and achievements</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10570948209090442381">
+              <a href="/scholar/10570948209090442381"><span itemprop="scholarAuthors">Dawes et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">A practical demonstration of scalable, parallel mesh generation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4646808883196775382">
+              <a href="/scholar/4646808883196775382"><span itemprop="scholarAuthors">Coelho et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">Epigrass: a tool to study disease spread in complex networks</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8719754B1/en">
+                <span itemprop="publicationNumber">US8719754B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-05-06">2014-05-06</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method to generate re-useable layout components from schematic components in an IC design with hierarchical parameters 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3751397065290593710">
+              <a href="/scholar/3751397065290593710"><span itemprop="scholarAuthors">Bernard et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">High-order h-adaptive discontinuous Galerkin methods for ocean modelling</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-01-13">2016-01-13</time></td>
+          <td itemprop="code">C06</td>
+          <td itemprop="title">Publication</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-02-10">2016-02-10</time></td>
+          <td itemprop="code">C10</td>
+          <td itemprop="title">Entry into substantive examination</td>
+          <td>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+      
+      
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>
